@@ -1,15 +1,17 @@
 package self.izouir.modsentesttask.service;
 
-import self.izouir.modsentesttask.entity.Meet;
+import self.izouir.modsentesttask.dto.MeetDto;
 
-import java.util.Set;
+import java.util.List;
 
 public interface MeetService {
-    Set<Meet> findAll();
+    List<MeetDto> findAll();
 
-    Meet find(Long meetId);
+    MeetDto find(Long meetId);
 
-    void save(Meet meet);
+    void save(MeetDto meetDto);
+
+    void update(MeetDto meetDto);
 
     void delete(Long meetId);
 }

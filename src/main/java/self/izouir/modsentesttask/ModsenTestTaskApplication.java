@@ -18,7 +18,7 @@ public class ModsenTestTaskApplication {
     public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
         LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
         localSessionFactoryBean.setDataSource(dataSource);
-        localSessionFactoryBean.setPackagesToScan("self.izouir.modsentesttask.entities");
+        localSessionFactoryBean.setPackagesToScan("self.izouir.modsentesttask.entity");
         return localSessionFactoryBean;
     }
 

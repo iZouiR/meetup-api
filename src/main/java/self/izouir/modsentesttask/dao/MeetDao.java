@@ -1,6 +1,6 @@
-package self.izouir.modsentesttask.daos;
+package self.izouir.modsentesttask.dao;
 
-import self.izouir.modsentesttask.entities.Meet;
+import self.izouir.modsentesttask.entity.Meet;
 
 import java.util.Set;
 

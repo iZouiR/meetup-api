@@ -1,6 +1,6 @@
-package self.izouir.modsentesttask.services;
+package self.izouir.modsentesttask.service;
 
-import self.izouir.modsentesttask.entities.Meet;
+import self.izouir.modsentesttask.entity.Meet;
 
 import java.util.Set;
 

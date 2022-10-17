@@ -1,12 +1,12 @@
-package self.izouir.modsentesttask.daos.impl;
+package self.izouir.modsentesttask.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import self.izouir.modsentesttask.daos.MeetDao;
-import self.izouir.modsentesttask.entities.Meet;
+import self.izouir.modsentesttask.dao.MeetDao;
+import self.izouir.modsentesttask.entity.Meet;
 
 import javax.persistence.Query;
 import java.util.Set;

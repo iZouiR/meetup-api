@@ -1,4 +1,4 @@
-package self.izouir.modsentesttask.controllers;
+package self.izouir.modsentesttask.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import self.izouir.modsentesttask.entities.Meet;
-import self.izouir.modsentesttask.services.MeetService;
+import self.izouir.modsentesttask.entity.Meet;
+import self.izouir.modsentesttask.service.MeetService;
 
 import java.util.Set;
 

@@ -1,6 +1,4 @@
-package self.izouir.modsentesttask.entities;
-
-import self.izouir.modsentesttask.entities.enums.Place;
+package self.izouir.modsentesttask.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

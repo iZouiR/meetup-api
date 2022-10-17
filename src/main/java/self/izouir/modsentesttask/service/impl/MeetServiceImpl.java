@@ -1,10 +1,10 @@
-package self.izouir.modsentesttask.services.impl;
+package self.izouir.modsentesttask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import self.izouir.modsentesttask.daos.MeetDao;
-import self.izouir.modsentesttask.entities.Meet;
-import self.izouir.modsentesttask.services.MeetService;
+import self.izouir.modsentesttask.dao.MeetDao;
+import self.izouir.modsentesttask.entity.Meet;
+import self.izouir.modsentesttask.service.MeetService;
 
 import java.util.Set;
 

@@ -30,22 +30,22 @@ public class MeetController {
     }
 
     @GetMapping("/{meetId}")
-    public Meet find(@PathVariable("meetId") Long meetId) {
+    public Meet find(@PathVariable("meetId") final Long meetId) {
         return meetService.find(meetId);
     }
 
     @PostMapping
-    public void save(@RequestBody Meet meet) {
+    public void save(@RequestBody final Meet meet) {
         meetService.save(meet);
     }
 
     @PutMapping
-    public void update(@RequestBody Meet meet) {
+    public void update(@RequestBody final Meet meet) {
         meetService.save(meet);
     }
 
     @DeleteMapping("/{meetId}")
-    public void delete(@PathVariable("meetId") Long meetId) {
+    public void delete(@PathVariable("meetId") final Long meetId) {
         meetService.delete(meetId);
     }
 }

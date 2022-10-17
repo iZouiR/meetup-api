@@ -23,28 +23,28 @@ public class MeetDaoImpl implements MeetDao {
 
     @Override
     public Set<Meet> findAll() {
-        Session session = sessionFactory.getCurrentSession();
+        final Session session = sessionFactory.getCurrentSession();
         return session.createQuery("from Meet", Meet.class).getResultStream().collect(Collectors.toSet());
     }
 
     @Override
     public Meet find(final Long meetId) {
-        Session session = sessionFactory.getCurrentSession();
+        final Session session = sessionFactory.getCurrentSession();
         return session.get(Meet.class, meetId);
     }
 
     @Override
     @Transactional
     public void save(final Meet meet) {
-        Session session = sessionFactory.getCurrentSession();
+        final Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(meet);
     }
 
     @Override
     @Transactional
     public void delete(final Long meetId) {
-        Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("delete from Meet where meetId =:meetId");
+        final Session session = sessionFactory.getCurrentSession();
+        final Query query = session.createQuery("delete from Meet where meetId =:meetId");
         query.setParameter("meetId", meetId);
         query.executeUpdate();
     }

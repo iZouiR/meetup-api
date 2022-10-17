@@ -12,12 +12,12 @@ import java.util.Properties;
 @ComponentScan("self.izouir.modsentesttask")
 public class ApplicationConfig {
     @Bean
-    public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+    public LocalSessionFactoryBean sessionFactory(final DataSource dataSource) {
+        final LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setPackagesToScan("self.izouir.modsentesttask.entity");
 
-        Properties hibernateProperties = new Properties();
+        final Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         hibernateProperties.setProperty("hibernate.show_sql", "true");
         sessionFactory.setHibernateProperties(hibernateProperties);

@@ -1,22 +1,26 @@
 package self.izouir.modsentesttask.controller.advice;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import self.izouir.modsentesttask.dto.ErrorDto;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import java.sql.Timestamp;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ControllerExceptionHandlingAdvice {
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<EntityNotFoundException> handleEntityNotFoundException(final EntityNotFoundException e) {
-        return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDto handleEntityNotFoundException(final EntityNotFoundException e) {
+        return new ErrorDto(HttpStatus.NOT_FOUND.value(), e.getMessage(), new Timestamp(System.currentTimeMillis()));
     }
 
     @ExceptionHandler(EntityExistsException.class)
-    public ResponseEntity<EntityExistsException> handleEntityExistsException(final EntityExistsException e) {
-        return new ResponseEntity<>(e, HttpStatus.FOUND);
+    @ResponseStatus(HttpStatus.FOUND)
+    public ErrorDto handleEntityExistsException(final EntityExistsException e) {
+        return new ErrorDto(HttpStatus.FOUND.value(), e.getMessage(), new Timestamp(System.currentTimeMillis()));
     }
 }

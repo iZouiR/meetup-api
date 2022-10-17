@@ -2,6 +2,11 @@ server:
   port: 8080
 
 spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://ec2-54-228-125-183.eu-west-1.compute.amazonaws.com:5432/d8be3018420lur
+    username: pbkzlauclnjimb
+    password: 2122fd9c3e9b08825c28a60865f36becb3e64ecf5e892ab8c94081d99eaa8eb8
   jpa:
     show-sql: true
     generate-ddl: false

@@ -38,9 +38,8 @@ public class MeetServiceImpl implements MeetService {
 
     @Override
     public void save(final MeetDto meetDto) {
-        if (meetDao.find(meetDto.getMeetId()).isPresent()) {
-            throw new MeetExistsException("Meet with meetId = " + meetDto.getMeetId() + " already exists");
-        }
+        meetDao.find(meetDto.getMeetId()).ifPresent(
+                meet -> {throw new MeetExistsException("Meet with meetId = " + meetDto.getMeetId() + " already exists");});
         meetDao.save(meetMapper.mapToEntity(meetDto));
     }
 

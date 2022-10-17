@@ -10,24 +10,17 @@ import java.util.stream.Collectors;
 @Component
 public class MeetMapper {
     public MeetDto mapToDto(final Meet meet) {
-        final MeetDto meetDto = new MeetDto();
-        meetDto.setMeetId(meet.getMeetId());
-        meetDto.setTitle(meet.getTitle());
-        meetDto.setDescription(meet.getDescription());
-        meetDto.setKeeper(meet.getKeeper());
-        meetDto.setDate(meet.getDate());
-        meetDto.setPlace(meet.getPlace());
-        return meetDto;
+        return new MeetDto(meet.getMeetId(), meet.getTitle(), meet.getDescription(), meet.getKeeper(), meet.getDate(), meet.getPlace());
     }
 
     public Meet mapToEntity(final MeetDto meetDto) {
         final Meet meet = new Meet();
-        meet.setMeetId(meetDto.getMeetId());
-        meet.setTitle(meetDto.getTitle());
-        meet.setDescription(meetDto.getDescription());
-        meet.setKeeper(meetDto.getKeeper());
-        meet.setDate(meetDto.getDate());
-        meet.setPlace(meetDto.getPlace());
+        meet.setMeetId(meetDto.meetId());
+        meet.setTitle(meetDto.title());
+        meet.setDescription(meetDto.description());
+        meet.setKeeper(meetDto.keeper());
+        meet.setDate(meetDto.date());
+        meet.setPlace(meetDto.place());
         return meet;
     }
 

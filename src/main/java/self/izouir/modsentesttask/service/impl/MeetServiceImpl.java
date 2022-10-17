@@ -38,15 +38,15 @@ public class MeetServiceImpl implements MeetService {
 
     @Override
     public void save(final MeetDto meetDto) {
-        meetDao.find(meetDto.getMeetId()).ifPresent(
-                meet -> {throw new MeetExistsException("Meet with meetId = " + meetDto.getMeetId() + " already exists");});
+        meetDao.find(meetDto.meetId()).ifPresent(
+                meet -> {throw new MeetExistsException("Meet with meetId = " + meet.getMeetId() + " already exists");});
         meetDao.save(meetMapper.mapToEntity(meetDto));
     }
 
     @Override
     public void update(final MeetDto meetDto) {
-        meetDao.find(meetDto.getMeetId()).orElseThrow(
-                () -> new MeetNotFoundException("Meet with meetId = " + meetDto.getMeetId() + " was not found"));
+        meetDao.find(meetDto.meetId()).orElseThrow(
+                () -> new MeetNotFoundException("Meet with meetId = " + meetDto.meetId() + " was not found"));
         meetDao.update(meetMapper.mapToEntity(meetDto));
     }
 

@@ -50,10 +50,11 @@ public class MeetController {
         meetService.delete(meetId);
     }
 
-    @GetMapping("/filter")
-    public List<MeetDto> findAllFilter(@RequestParam(value = "title", required = false) final String title,
-                                       @RequestParam(value = "keeper", required = false) final String keeper,
-                                       @RequestParam(value = "date", required = false) final String stringDate) {
-        return meetService.findAllFilter(title, keeper, stringDate);
+    @GetMapping("/filter-sorter")
+    public List<MeetDto> findAllFilterAndSorter(@RequestParam(value = "title", required = false) final String title,
+                                                @RequestParam(value = "keeper", required = false) final String keeper,
+                                                @RequestParam(value = "date", required = false) final String stringDate,
+                                                @RequestParam(value = "sortMode", required = false) final String sortMode) {
+        return meetService.findAllFilterAndSorter(title, keeper, stringDate, sortMode);
     }
 }

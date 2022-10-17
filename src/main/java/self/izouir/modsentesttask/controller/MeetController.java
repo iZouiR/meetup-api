@@ -15,7 +15,7 @@ import self.izouir.modsentesttask.service.MeetService;
 import java.util.Set;
 
 @RestController
-@RequestMapping("api/v1/meets")
+@RequestMapping("/api/v1/meets")
 public class MeetController {
     private final MeetService meetService;
 
@@ -25,27 +25,27 @@ public class MeetController {
     }
 
     @GetMapping
-    public Set<Meet> findAllMeets() {
-        return meetService.findAllMeets();
+    public Set<Meet> findAll() {
+        return meetService.findAll();
     }
 
     @GetMapping("/{meetId}")
-    public Meet findMeet(@PathVariable("meetId") Long meetId) {
-        return meetService.findMeet(meetId);
+    public Meet find(@PathVariable("meetId") Long meetId) {
+        return meetService.find(meetId);
     }
 
     @PostMapping
-    public void saveMeet(@RequestBody Meet meet) {
-        meetService.saveMeet(meet);
+    public void save(@RequestBody Meet meet) {
+        meetService.save(meet);
     }
 
     @PutMapping
-    public void editMeet(@RequestBody Meet meet) {
-        meetService.saveMeet(meet);
+    public void update(@RequestBody Meet meet) {
+        meetService.save(meet);
     }
 
     @DeleteMapping("/{meetId}")
-    public void deleteMeet(@PathVariable("meetId") Long meetId) {
-        meetService.deleteMeet(meetId);
+    public void delete(@PathVariable("meetId") Long meetId) {
+        meetService.delete(meetId);
     }
 }

@@ -18,22 +18,22 @@ public class MeetServiceImpl implements MeetService {
     }
 
     @Override
-    public Set<Meet> findAllMeets() {
-        return meetDao.findAllMeets();
+    public Set<Meet> findAll() {
+        return meetDao.findAll();
     }
 
     @Override
-    public Meet findMeet(final Long meetId) {
-        return meetDao.findMeet(meetId);
+    public Meet find(final Long meetId) {
+        return meetDao.find(meetId);
     }
 
     @Override
-    public void saveMeet(final Meet meet) {
-        meetDao.saveMeet(meet);
+    public void save(final Meet meet) {
+        meetDao.save(meet);
     }
 
     @Override
-    public void deleteMeet(final Long meetId) {
-        meetDao.deleteMeet(meetId);
+    public void delete(final Long meetId) {
+        meetDao.delete(meetId);
     }
 }

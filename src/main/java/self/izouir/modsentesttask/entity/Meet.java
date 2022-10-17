@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "meets")
@@ -90,5 +91,29 @@ public class Meet {
 
     public void setPlace(final Place place) {
         this.place = place;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        final Meet meet = (Meet) o;
+
+        if (!title.equals(meet.title)) return false;
+        if (!Objects.equals(description, meet.description)) return false;
+        if (!keeper.equals(meet.keeper)) return false;
+        if (!date.equals(meet.date)) return false;
+        return place == meet.place;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = title.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + keeper.hashCode();
+        result = 31 * result + date.hashCode();
+        result = 31 * result + place.hashCode();
+        return result;
     }
 }

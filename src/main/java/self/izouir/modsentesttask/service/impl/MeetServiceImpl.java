@@ -2,56 +2,67 @@ package self.izouir.modsentesttask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import self.izouir.modsentesttask.dao.MeetDao;
+import self.izouir.modsentesttask.converter.StringToTimestampConverter;
 import self.izouir.modsentesttask.dto.MeetDto;
 import self.izouir.modsentesttask.entity.Meet;
-import self.izouir.modsentesttask.exception.MeetExistsException;
 import self.izouir.modsentesttask.exception.MeetNotFoundException;
 import self.izouir.modsentesttask.mapper.MeetMapper;
+import self.izouir.modsentesttask.repository.MeetRepository;
 import self.izouir.modsentesttask.service.MeetService;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
 public class MeetServiceImpl implements MeetService {
-    private final MeetDao meetDao;
+    private final MeetRepository meetRepository;
     private final MeetMapper meetMapper;
+    private final StringToTimestampConverter stringToTimestampConverter;
 
     @Autowired
-    public MeetServiceImpl(final MeetDao meetDao,
-                           final MeetMapper meetMapper) {
-        this.meetDao = meetDao;
+    public MeetServiceImpl(final MeetRepository meetRepository,
+                           final MeetMapper meetMapper,
+                           final StringToTimestampConverter stringToTimestampConverter) {
+        this.meetRepository = meetRepository;
         this.meetMapper = meetMapper;
+        this.stringToTimestampConverter = stringToTimestampConverter;
     }
 
     @Override
     public List<MeetDto> findAll() {
-        return meetMapper.mapToDtos(meetDao.findAll());
+        return meetMapper.mapToDtos(meetRepository.findAll());
     }
 
     @Override
     public MeetDto find(final Long meetId) {
-        final Meet meet = meetDao.find(meetId).orElseThrow(
+        final Meet meet = meetRepository.find(meetId).orElseThrow(
                 () -> new MeetNotFoundException("Meet with meetId = " + meetId + " was not found"));
         return meetMapper.mapToDto(meet);
     }
 
     @Override
     public void save(final MeetDto meetDto) {
-        meetDao.find(meetDto.meetId()).ifPresent(
-                meet -> {throw new MeetExistsException("Meet with meetId = " + meet.getMeetId() + " already exists");});
-        meetDao.save(meetMapper.mapToEntity(meetDto));
+        meetRepository.save(meetMapper.mapToEntity(meetDto));
     }
 
     @Override
     public void update(final MeetDto meetDto) {
-        meetDao.find(meetDto.meetId()).orElseThrow(
+        meetRepository.find(meetDto.meetId()).orElseThrow(
                 () -> new MeetNotFoundException("Meet with meetId = " + meetDto.meetId() + " was not found"));
-        meetDao.update(meetMapper.mapToEntity(meetDto));
+        meetRepository.update(meetMapper.mapToEntity(meetDto));
     }
 
     @Override
     public void delete(final Long meetId) {
-        meetDao.delete(meetId);
+        meetRepository.delete(meetId);
+    }
+
+    @Override
+    public List<MeetDto> findAllFilter(String title, String keeper, final String stringDate) {
+        title = (title == null) ? "" : title;
+        keeper = (keeper == null) ? "" : keeper;
+        final Timestamp date = (stringDate == null || stringDate.isBlank()) ?
+                new Timestamp(0) : stringToTimestampConverter.convert(stringDate);
+        return meetMapper.mapToDtos(meetRepository.findAllFilter(title, keeper, date));
     }
 }

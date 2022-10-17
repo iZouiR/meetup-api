@@ -5,9 +5,9 @@ import self.izouir.modsentesttask.entities.Meet;
 import java.util.Set;
 
 public interface MeetDao {
-    Set<Meet> getAllMeets();
+    Set<Meet> findAllMeets();
 
-    Meet getMeet(Long meetId);
+    Meet findMeet(Long meetId);
 
     void saveMeet (Meet meet);
 

@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import self.izouir.modsentesttask.daos.MeetDao;
 import self.izouir.modsentesttask.entities.Meet;
 
@@ -21,24 +22,26 @@ public class MeetDaoImpl implements MeetDao {
     }
 
     @Override
-    public Set<Meet> getAllMeets() {
+    public Set<Meet> findAllMeets() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("select from Meet", Meet.class).getResultStream().collect(Collectors.toSet());
+        return session.createQuery("from Meet", Meet.class).getResultStream().collect(Collectors.toSet());
     }
 
     @Override
-    public Meet getMeet(final Long meetId) {
+    public Meet findMeet(final Long meetId) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Meet.class, meetId);
     }
 
     @Override
+    @Transactional
     public void saveMeet(final Meet meet) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(meet);
     }
 
     @Override
+    @Transactional
     public void deleteMeet(final Long meetId) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("delete from Meet where meetId =:meetId");

@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import self.izouir.modsentesttask.entity.Meet;
+import self.izouir.modsentesttask.dto.MeetDto;
 import self.izouir.modsentesttask.service.MeetService;
 
-import java.util.Set;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/meets")
@@ -25,23 +25,23 @@ public class MeetController {
     }
 
     @GetMapping
-    public Set<Meet> findAll() {
+    public List<MeetDto> findAll() {
         return meetService.findAll();
     }
 
     @GetMapping("/{meetId}")
-    public Meet find(@PathVariable("meetId") final Long meetId) {
+    public MeetDto find(@PathVariable("meetId") final Long meetId) {
         return meetService.find(meetId);
     }
 
     @PostMapping
-    public void save(@RequestBody final Meet meet) {
-        meetService.save(meet);
+    public void save(@RequestBody final MeetDto meetDto) {
+        meetService.save(meetDto);
     }
 
     @PutMapping
-    public void update(@RequestBody final Meet meet) {
-        meetService.save(meet);
+    public void update(@RequestBody final MeetDto meetDto) {
+        meetService.update(meetDto);
     }
 
     @DeleteMapping("/{meetId}")

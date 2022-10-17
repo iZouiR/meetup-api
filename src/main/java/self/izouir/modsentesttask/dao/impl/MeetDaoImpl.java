@@ -9,8 +9,8 @@ import self.izouir.modsentesttask.dao.MeetDao;
 import self.izouir.modsentesttask.entity.Meet;
 
 import javax.persistence.Query;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class MeetDaoImpl implements MeetDao {
@@ -22,22 +22,29 @@ public class MeetDaoImpl implements MeetDao {
     }
 
     @Override
-    public Set<Meet> findAll() {
+    public List<Meet> findAll() {
         final Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Meet", Meet.class).getResultStream().collect(Collectors.toSet());
+        return session.createQuery("from Meet", Meet.class).getResultList();
     }
 
     @Override
-    public Meet find(final Long meetId) {
+    public Optional<Meet> find(final Long meetId) {
         final Session session = sessionFactory.getCurrentSession();
-        return session.get(Meet.class, meetId);
+        return Optional.ofNullable(session.find(Meet.class, meetId));
+    }
+
+    @Override
+    public void save(final Meet meet) {
+        final Session session = sessionFactory.getCurrentSession();
+        session.save(meet);
     }
 
     @Override
     @Transactional
-    public void save(final Meet meet) {
+    public void update(final Meet meet) {
         final Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(meet);
+        session.clear();
+        session.update(meet);
     }
 
     @Override

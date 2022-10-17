@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import self.izouir.modsentesttask.dto.MeetDto;
 import self.izouir.modsentesttask.service.MeetService;
@@ -47,5 +48,12 @@ public class MeetController {
     @DeleteMapping("/{meetId}")
     public void delete(@PathVariable("meetId") final Long meetId) {
         meetService.delete(meetId);
+    }
+
+    @GetMapping("/filter")
+    public List<MeetDto> findAllFilter(@RequestParam(value = "title", required = false) final String title,
+                                       @RequestParam(value = "keeper", required = false) final String keeper,
+                                       @RequestParam(value = "date", required = false) final String stringDate) {
+        return meetService.findAllFilter(title, keeper, stringDate);
     }
 }

@@ -31,7 +31,7 @@ public class MeetMapper {
         return meet;
     }
 
-    public List<MeetDto> mapToDtos(final List<Meet> meetList) {
-        return meetList.stream().map(this::mapToDto).collect(Collectors.toList());
+    public List<MeetDto> mapToDtos(final List<Meet> meets) {
+        return meets.stream().map(this::mapToDto).collect(Collectors.toList());
     }
 }

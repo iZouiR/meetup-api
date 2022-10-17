@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "meets")
@@ -30,7 +30,7 @@ public class Meet {
     private String keeper;
 
     @Column(name = "date")
-    private Date date;
+    private Timestamp date;
 
     @Column(name = "place")
     @Enumerated(EnumType.STRING)
@@ -38,7 +38,7 @@ public class Meet {
 
     public Meet() {}
 
-    public Meet(final String title, final String description, final String keeper, final Date date, final Place place) {
+    public Meet(final String title, final String description, final String keeper, final Timestamp date, final Place place) {
         this.title = title;
         this.description = description;
         this.keeper = keeper;
@@ -78,11 +78,11 @@ public class Meet {
         this.keeper = keeper;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(final Date date) {
+    public void setDate(final Timestamp date) {
         this.date = date;
     }
 

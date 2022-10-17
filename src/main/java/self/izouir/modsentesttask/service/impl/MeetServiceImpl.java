@@ -58,11 +58,42 @@ public class MeetServiceImpl implements MeetService {
     }
 
     @Override
-    public List<MeetDto> findAllFilter(String title, String keeper, final String stringDate) {
+    public List<MeetDto> findAllFilterAndSorter(String title, String keeper, final String stringDate, String sortMode) {
         title = (title == null) ? "" : title;
         keeper = (keeper == null) ? "" : keeper;
         final Timestamp date = (stringDate == null || stringDate.isBlank()) ?
                 new Timestamp(0) : stringToTimestampConverter.convert(stringDate);
-        return meetMapper.mapToDtos(meetRepository.findAllFilter(title, keeper, date));
+        sortMode = (sortMode == null) ? "" : sortMode;
+        final List<Meet> meets = meetRepository.findAllFilter(title, keeper, date);
+        switch (sortMode) {
+            case "title" -> meets.sort((o1, o2) -> {
+                if (o1.getTitle().equals(o2.getTitle())) {
+                    return 0;
+                } else if (o1.getTitle().compareTo(o2.getTitle()) > 0) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            });
+            case "keeper" -> meets.sort((o1, o2) -> {
+                if (o1.getKeeper().equals(o2.getKeeper())) {
+                    return 0;
+                } else if (o1.getKeeper().compareTo(o2.getKeeper()) > 0) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            });
+            case "date" -> meets.sort((o1, o2) -> {
+                if (o1.getDate().equals(o2.getDate())) {
+                    return 0;
+                } else if (o1.getDate().after(o2.getDate())) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            });
+        }
+        return meetMapper.mapToDtos(meets);
     }
 }

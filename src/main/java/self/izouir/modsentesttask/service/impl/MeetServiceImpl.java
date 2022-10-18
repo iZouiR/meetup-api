@@ -1,10 +1,10 @@
 package self.izouir.modsentesttask.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import self.izouir.modsentesttask.comparator.MeetComparatorFactory;
 import self.izouir.modsentesttask.dto.MeetDto;
 import self.izouir.modsentesttask.entity.Meet;
+import self.izouir.modsentesttask.exception.InvalidDateFormatException;
 import self.izouir.modsentesttask.mapper.MeetMapper;
 import self.izouir.modsentesttask.repository.MeetRepository;
 import self.izouir.modsentesttask.service.MeetService;
@@ -17,12 +17,14 @@ import java.util.List;
 public class MeetServiceImpl implements MeetService {
     private final MeetRepository meetRepository;
     private final MeetMapper meetMapper;
+    private final MeetComparatorFactory meetComparatorFactory;
 
-    @Autowired
     public MeetServiceImpl(final MeetRepository meetRepository,
-                           final MeetMapper meetMapper) {
+                           final MeetMapper meetMapper,
+                           final MeetComparatorFactory meetComparatorFactory) {
         this.meetRepository = meetRepository;
         this.meetMapper = meetMapper;
+        this.meetComparatorFactory = meetComparatorFactory;
     }
 
     @Override
@@ -59,15 +61,15 @@ public class MeetServiceImpl implements MeetService {
     }
 
     @Override
-    public List<MeetDto> findAllFilterAndSorter(final String title, final String keeper,
-                                                final String timestamp, final String comparator) {
+    public List<MeetDto> findAllFilteredAndSorted(final String title, final String keeper,
+                                                  final String timestamp, final String comparator) {
         try {
             final Timestamp date = (timestamp.isBlank()) ? new Timestamp(0) : Timestamp.valueOf(timestamp);
-            final List<Meet> meets = meetRepository.findAllFilter(title, keeper, date);
-            meets.sort(MeetComparatorFactory.get(comparator));
+            final List<Meet> meets = meetRepository.findAllFiltered(title, keeper, date);
+            meets.sort(meetComparatorFactory.get(comparator));
             return meetMapper.mapToDtos(meets);
         } catch (final IllegalArgumentException e) {
-            throw new IllegalArgumentException("Date format must be yyyy-mm-dd hh:mm:ss[.fffffffff]");
+            throw new InvalidDateFormatException("Date format must be yyyy-mm-dd hh:mm:ss[.fffffffff]");
         }
     }
 }

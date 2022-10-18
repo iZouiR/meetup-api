@@ -14,14 +14,7 @@ public class MeetMapper {
     }
 
     public Meet mapToEntity(final MeetDto meetDto) {
-        final Meet meet = new Meet();
-        meet.setMeetId(meetDto.meetId());
-        meet.setTitle(meetDto.title());
-        meet.setDescription(meetDto.description());
-        meet.setKeeper(meetDto.keeper());
-        meet.setDate(meetDto.date());
-        meet.setPlace(meetDto.place());
-        return meet;
+        return new Meet(meetDto.meetId(), meetDto.title(), meetDto.description(), meetDto.keeper(), meetDto.date(), meetDto.place());
     }
 
     public List<MeetDto> mapToDtos(final List<Meet> meets) {

@@ -14,4 +14,6 @@ public interface MeetService {
     void update(MeetDto meetDto);
 
     void delete(Long meetId);
+
+    List<MeetDto> findAllFilteredAndSorted(String title, String keeper, String timestamp, String comparator);
 }

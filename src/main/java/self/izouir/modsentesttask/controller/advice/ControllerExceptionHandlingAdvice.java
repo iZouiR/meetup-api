@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import self.izouir.modsentesttask.dto.ErrorDto;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.sql.Timestamp;
 
@@ -18,9 +17,9 @@ public class ControllerExceptionHandlingAdvice {
         return new ErrorDto(HttpStatus.NOT_FOUND.value(), e.getMessage(), new Timestamp(System.currentTimeMillis()));
     }
 
-    @ExceptionHandler(EntityExistsException.class)
-    @ResponseStatus(HttpStatus.FOUND)
-    public ErrorDto handleEntityExistsException(final EntityExistsException e) {
-        return new ErrorDto(HttpStatus.FOUND.value(), e.getMessage(), new Timestamp(System.currentTimeMillis()));
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDto handleIllegalArgumentException(final IllegalArgumentException e) {
+        return new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage(), new Timestamp(System.currentTimeMillis()));
     }
 }

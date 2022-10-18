@@ -1,6 +1,5 @@
 package self.izouir.modsentesttask.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,14 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/meets")
-public class MeetController {
-    private final MeetService meetService;
-
-    @Autowired
-    public MeetController(final MeetService meetService) {
-        this.meetService = meetService;
-    }
-
+public record MeetController(MeetService meetService) {
     @GetMapping
     public List<MeetDto> findAll() {
         return meetService.findAll();
@@ -51,11 +43,11 @@ public class MeetController {
         meetService.delete(meetId);
     }
 
-    @GetMapping("/filter-sorter")
-    public List<MeetDto> findAllFilterAndSorter(@RequestParam(value = "title", required = false, defaultValue = "") final String title,
-                                                @RequestParam(value = "keeper", required = false, defaultValue = "") final String keeper,
-                                                @RequestParam(value = "date", required = false, defaultValue = "") final String timestamp,
-                                                @RequestParam(value = "comparator", required = false, defaultValue = "") final String comparator) {
-        return meetService.findAllFilterAndSorter(title, keeper, timestamp, comparator);
+    @GetMapping("/filter-sort")
+    public List<MeetDto> findAllFilteredAndSorted(@RequestParam(value = "title", required = false, defaultValue = "") final String title,
+                                                  @RequestParam(value = "keeper", required = false, defaultValue = "") final String keeper,
+                                                  @RequestParam(value = "date", required = false, defaultValue = "") final String timestamp,
+                                                  @RequestParam(value = "comparator", required = false, defaultValue = "") final String comparator) {
+        return meetService.findAllFilteredAndSorted(title, keeper, timestamp, comparator);
     }
 }

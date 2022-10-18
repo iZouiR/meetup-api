@@ -1,16 +1,16 @@
 package self.izouir.modsentesttask.comparator;
 
+import org.springframework.stereotype.Component;
 import self.izouir.modsentesttask.entity.Meet;
 
 import java.util.Comparator;
 
-public class MeetComparatorFactory {
-    private static final Comparator<Meet> byMeetId = new MeetComparatorByMeetId();
-    private static final Comparator<Meet> byTitle = new MeetComparatorByTitle();
-    private static final Comparator<Meet> byKeeper = new MeetComparatorByKeeper();
-    private static final Comparator<Meet> byDate = new MeetComparatorByDate();
-
-    public static Comparator<Meet> get(final String comparator) {
+@Component
+public record MeetComparatorFactory(MeetComparatorByMeetId byMeetId,
+                                    MeetComparatorByTitle byTitle,
+                                    MeetComparatorByKeeper byKeeper,
+                                    MeetComparatorByDate byDate) {
+    public Comparator<Meet> get(final String comparator) {
         switch (comparator) {
             case "title" -> {
                 return byTitle;
@@ -25,8 +25,5 @@ public class MeetComparatorFactory {
                 return byMeetId;
             }
         }
-    }
-
-    private MeetComparatorFactory() {
     }
 }

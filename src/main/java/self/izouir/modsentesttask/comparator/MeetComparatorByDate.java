@@ -1,9 +1,11 @@
 package self.izouir.modsentesttask.comparator;
 
+import org.springframework.stereotype.Component;
 import self.izouir.modsentesttask.entity.Meet;
 
 import java.util.Comparator;
 
+@Component
 public class MeetComparatorByDate implements Comparator<Meet> {
     @Override
     public int compare(final Meet o1, final Meet o2) {

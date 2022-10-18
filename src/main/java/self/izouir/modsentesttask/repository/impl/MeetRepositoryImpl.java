@@ -2,7 +2,6 @@ package self.izouir.modsentesttask.repository.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import self.izouir.modsentesttask.entity.Meet;
@@ -17,7 +16,6 @@ import java.util.Optional;
 public class MeetRepositoryImpl implements MeetRepository {
     private final SessionFactory sessionFactory;
 
-    @Autowired
     public MeetRepositoryImpl(final SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
@@ -58,11 +56,13 @@ public class MeetRepositoryImpl implements MeetRepository {
     }
 
     @Override
-    public List<Meet> findAllFilter(final String title, final String keeper, final Timestamp date) {
+    public List<Meet> findAllFiltered(String title, String keeper, final Timestamp date) {
+        title = "%" + title.toLowerCase() + "%";
+        keeper = "%" + keeper.toLowerCase() + "%";
         final Session session = sessionFactory.getCurrentSession();
         final Query query = session.createQuery("from Meet where lower(title) like :title and lower(keeper) like :keeper and date >= :date", Meet.class);
-        query.setParameter("title", "%" + title.toLowerCase() + "%");
-        query.setParameter("keeper", "%" + keeper.toLowerCase() + "%");
+        query.setParameter("title", title);
+        query.setParameter("keeper", keeper);
         query.setParameter("date", date);
         return query.getResultList();
     }

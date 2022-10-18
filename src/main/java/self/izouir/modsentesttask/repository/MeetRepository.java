@@ -17,5 +17,5 @@ public interface MeetRepository {
 
     void delete(Long meetId);
 
-    List<Meet> findAllFilter(String title, String keeper, Timestamp date);
+    List<Meet> findAllFiltered(String title, String keeper, Timestamp date);
 }

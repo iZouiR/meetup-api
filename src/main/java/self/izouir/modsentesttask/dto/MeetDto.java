@@ -7,11 +7,9 @@ import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 public record MeetDto(Long meetId,
-                      @NotNull
                       @NotBlank
                       String title,
                       String description,
-                      @NotNull
                       @NotBlank
                       String keeper,
                       @NotNull

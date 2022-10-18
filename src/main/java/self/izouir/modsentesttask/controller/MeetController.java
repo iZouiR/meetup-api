@@ -1,6 +1,7 @@
 package self.izouir.modsentesttask.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,12 +37,12 @@ public class MeetController {
     }
 
     @PostMapping
-    public void save(@RequestBody final MeetDto meetDto) {
+    public void save(@Validated @RequestBody final MeetDto meetDto) {
         meetService.save(meetDto);
     }
 
     @PutMapping
-    public void update(@RequestBody final MeetDto meetDto) {
+    public void update(@Validated @RequestBody final MeetDto meetDto) {
         meetService.update(meetDto);
     }
 
@@ -51,10 +52,10 @@ public class MeetController {
     }
 
     @GetMapping("/filter-sorter")
-    public List<MeetDto> findAllFilterAndSorter(@RequestParam(value = "title", required = false) final String title,
-                                                @RequestParam(value = "keeper", required = false) final String keeper,
-                                                @RequestParam(value = "date", required = false) final String stringDate,
-                                                @RequestParam(value = "sortMode", required = false) final String sortMode) {
-        return meetService.findAllFilterAndSorter(title, keeper, stringDate, sortMode);
+    public List<MeetDto> findAllFilterAndSorter(@RequestParam(value = "title", required = false, defaultValue = "") final String title,
+                                                @RequestParam(value = "keeper", required = false, defaultValue = "") final String keeper,
+                                                @RequestParam(value = "date", required = false, defaultValue = "") final String timestamp,
+                                                @RequestParam(value = "comparator", required = false, defaultValue = "") final String comparator) {
+        return meetService.findAllFilterAndSorter(title, keeper, timestamp, comparator);
     }
 }

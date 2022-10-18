@@ -16,4 +16,10 @@ public class ControllerExceptionHandlingAdvice {
     public ErrorDto handleEntityNotFoundException(final EntityNotFoundException e) {
         return new ErrorDto(HttpStatus.NOT_FOUND.value(), e.getMessage(), new Timestamp(System.currentTimeMillis()));
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDto handleIllegalArgumentException(final IllegalArgumentException e) {
+        return new ErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage(), new Timestamp(System.currentTimeMillis()));
+    }
 }

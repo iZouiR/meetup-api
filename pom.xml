@@ -12,6 +12,7 @@
     <artifactId>ModsenTestTask</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ModsenTestTask</name>
+    <packaging>jar</packaging>
     <description>ModsenTestTask</description>
     <properties>
         <java.version>17</java.version>
@@ -72,6 +73,19 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>spring-boot</classifier>
+                            <mainClass>
+                                self.izouir.modsentesttask.ModsenTestTaskApplication
+                            </mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

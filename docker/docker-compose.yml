@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  app:
+    build: ../
+    restart: on-failure
+    container_name: app
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://${POSTGRES_HOSTNAME}:5432/${POSTGRES_DB}
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
+      - SPRING_FLYWAY_URL=jdbc:postgresql://${POSTGRES_HOSTNAME}:5432/${POSTGRES_DB}
+      - SPRING_FLYWAY_USER=${POSTGRES_USER}
+      - SPRING_FLYWAY_PASSWORD=${POSTGRES_PASSWORD}
+    depends_on:
+      - postgres
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    container_name: db
+    hostname: ${POSTGRES_HOSTNAME}
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}

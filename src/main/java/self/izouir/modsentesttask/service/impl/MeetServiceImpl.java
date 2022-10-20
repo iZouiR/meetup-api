@@ -46,13 +46,9 @@ public class MeetServiceImpl implements MeetService {
 
     @Override
     public void update(final MeetDto meetDto) {
-        try {
-            meetRepository.find(meetDto.meetId()).orElseThrow(
-                    () -> new EntityNotFoundException("Meet with meetId = " + meetDto.meetId() + " was not found"));
-            meetRepository.update(meetMapper.mapToEntity(meetDto));
-        } catch (final IllegalArgumentException e) {
-            throw new IllegalArgumentException("Field meetId mustn't be null for update");
-        }
+        meetRepository.find(meetDto.meetId()).orElseThrow(
+                () -> new EntityNotFoundException("Meet with meetId = " + meetDto.meetId() + " was not found"));
+        meetRepository.update(meetMapper.mapToEntity(meetDto));
     }
 
     @Override

@@ -5,6 +5,7 @@ services:
     build: ../
     restart: on-failure
     container_name: app
+    hostname: ${APP_HOSTNAME}
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://${POSTGRES_HOSTNAME}:5432/${POSTGRES_DB}
       - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
@@ -15,7 +16,7 @@ services:
     depends_on:
       - postgres
     ports:
-      - ${APP_PORT}:${APP_PORT}
+      - ${APP_PORT}:8080
 
   postgres:
     image: postgres:latest
@@ -27,4 +28,4 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+      - ${POSTGRES_PORT}:5432

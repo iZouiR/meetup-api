@@ -4,6 +4,6 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml -Dmaven.test.skip=true clean package
 
 FROM openjdk:17
-COPY --from=build /home/app/target/*.jar /home/app/modsen-test-task.jar
+COPY --from=build /home/app/target/*.jar /home/app/meetup-api.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/home/app/modsen-test-task.jar"]
+ENTRYPOINT ["java", "-jar", "/home/app/meetup-api.jar"]
